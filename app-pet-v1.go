@@ -3,13 +3,14 @@ package main
 import (
 	"fmt"
 	"io/ioutil"
+	"log"
 	"net/http"
 	"os"
 )
 
-func checkError(e error) {
-	if e != nil {
-		panic(e)
+func checkError(err error) {
+	if err != nil {
+		log.Fatal(err)
 	}
 }
 

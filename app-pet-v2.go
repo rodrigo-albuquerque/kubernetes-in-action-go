@@ -3,18 +3,20 @@ package main
 import (
 	"fmt"
 	"io/ioutil"
+	"log"
 	"net/http"
 	"os"
 )
 
-func checkError(e error) {
-	if e != nil {
-		panic(e)
+func checkError(err error) {
+	if err != nil {
+		log.Fatal(err)
 	}
 }
 
 func myhandler(resp http.ResponseWriter, req *http.Request) {
-	name, _ := os.Hostname()
+	name, err := os.Hostname()
+	checkError(err)
 	if req.Method == "POST" {
 		postBody, err := ioutil.ReadAll(req.Body)
 		checkError(err)
@@ -27,7 +29,7 @@ func myhandler(resp http.ResponseWriter, req *http.Request) {
 		fmt.Fprint(resp, "Data stored on pod "+name, "\n")
 	} else {
 		fmt.Fprint(resp, "You've hit "+name, "\n")
-    fmt.Fprint(resp, "Data stored on this pod: ")
+		fmt.Fprint(resp, "Data stored on this pod: ")
 		d, err := ioutil.ReadFile("/var/data/kubia.txt")
 		if err != nil {
 			fmt.Fprint(resp, "Data stored on this pod: No data posted yet\n")
@@ -41,4 +43,3 @@ func main() {
 	http.HandleFunc("/", myhandler)
 	http.ListenAndServe(":8080", nil)
 }
-
