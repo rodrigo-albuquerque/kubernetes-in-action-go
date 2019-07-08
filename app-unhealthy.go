@@ -12,7 +12,9 @@ var (
 
 func handler(response http.ResponseWriter, request *http.Request) {
 	name, err := os.Hostname()
-	checkError(err)
+	if err != nil {
+    log.Fatal(err)
+  }
 	if counter < 5 {
 		fmt.Fprint(response, "You've hit "+name, "\n")
 		counter++
