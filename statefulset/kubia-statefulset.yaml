@@ -12,7 +12,7 @@ spec:
     spec:
       containers:
       - name: kubia
-        image: digofarias/app:v7
+        image: digofarias/app:pet-peers
         ports:
         - name: http
           containerPort: 8080
