@@ -33,15 +33,4 @@ pipeline {
                 sh "docker rmi $registry:$BUILD_NUMBER"
             }
         }
-#        stage('DeployToProduction') {
-#            steps {
-#                input 'Deploy to Production?'
-#                milestone(1)
-#                kubernetesDeploy(
-#                    kubeconfigId: 'kubeconfig',
-#                    configs: 'k8s-dc-deployment.yaml',
-#                    enableConfigSubstitution: true
-#               )
-#            }
-#      }
 }
