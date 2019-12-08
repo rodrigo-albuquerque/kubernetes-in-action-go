@@ -1,23 +1,47 @@
 pipeline {
     agent any
-    options {
-        skipStagesAfterUnstable()
+    environment {
+        DOCKER_IMAGE_NAME = "digofarias/app:v1"
+        registry = "digofarias/app"
+        registryCredential = 'dockerhub'
+        dockerImage = ''
     }
     stages {
-        stage('Build') {
+        stage('Cloning Git Repository') {
             steps {
-                echo "step 1 - building..."
+                git 'https://github.com/rodrigo-albuquerque/kubernetes-in-action-go.git'
             }
         }
-        stage('Test'){
+        stage('Build Docker Image') {
             steps {
-                echo "step 2 - testing..."
+                script {
+                    dockerImage = docker.build registry + ":$BUILD_NUMBER"
+                }
             }
         }
-        stage('Deploy') {
+        stage('Push Docker Image') {
             steps {
-                echo "Deploying..."
+                script {
+                    docker.withRegistry( '', registryCredential ) {
+                        dockerImage.push()
+                    }
+                }
+             }
+        }
+        stage('Clear Unused docker image') {
+            steps {
+                sh "docker rmi $registry:$BUILD_NUMBER"
             }
         }
-    }
+#        stage('DeployToProduction') {
+#            steps {
+#                input 'Deploy to Production?'
+#                milestone(1)
+#                kubernetesDeploy(
+#                    kubeconfigId: 'kubeconfig',
+#                    configs: 'k8s-dc-deployment.yaml',
+#                    enableConfigSubstitution: true
+#               )
+#            }
+#      }
 }

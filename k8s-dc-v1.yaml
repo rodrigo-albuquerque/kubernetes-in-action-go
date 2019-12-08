@@ -1,14 +1,14 @@
 apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
-  name: kubia-2-containers
+  name: dc-deployment
 spec:
   replicas: 3
   template:
     metadata:
-      name: kubia
+      name: dc
       labels:
-        app: kubia
+        app: dc
     spec:
       containers:
       - image: digofarias/app:v1
