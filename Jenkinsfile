@@ -44,7 +44,7 @@ pipeline {
                 projectId: env.PROJECT_ID,
                 clusterName: env.CLUSTER_NAME,
                 location: env.LOCATION,
-                manifestPattern: 'manifest.yaml',
+                manifestPattern: 'k8s-dc-v1.yaml',
                 credentialsId: env.CREDENTIALS_ID,
                 verifyDeployments: true])
                 }
