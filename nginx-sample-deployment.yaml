@@ -1,0 +1,18 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: dc-deployment
+spec:
+  replicas: 3
+  template:
+    metadata:
+      name: dc
+      labels:
+        app: dc
+    spec:
+      containers:
+      - image: digofarias/app:v1
+        name: go
+      containers:
+      - image: nginx:latest
+        name: nginx

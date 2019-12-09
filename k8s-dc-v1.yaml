@@ -1,18 +1,15 @@
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: dc-deployment
+  name: go-app
 spec:
   replicas: 3
   template:
     metadata:
-      name: dc
+      name: go-app
       labels:
-        app: dc
+        app: go-app
     spec:
       containers:
       - image: digofarias/app:v1
-        name: go
-      containers:
-      - image: nginx:latest
-        name: nginx
+        name: go-app
