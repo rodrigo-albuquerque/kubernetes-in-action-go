@@ -8,7 +8,7 @@ pipeline {
         PROJECT_ID = 'rodrigo-albuquerque'
         CLUSTER_NAME = 'rodrigo-k8s-cluster'
         LOCATION = 'europe-west1-d'
-        CREDENTIALS_ID = 'kubernetes-demo'
+        CREDENTIALS_ID = 'rodrigo-albuquerque'
     }
     stages {
         stage('Cloning Git Repository') {
