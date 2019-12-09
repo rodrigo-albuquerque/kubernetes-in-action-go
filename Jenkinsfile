@@ -5,6 +5,10 @@ pipeline {
         registry = "digofarias/app"
         registryCredential = 'dockerhub'
         dockerImage = ''
+        PROJECT_ID = 'rodrigo-albuquerque'
+        CLUSTER_NAME = 'rodrigo-k8s-cluster'
+        LOCATION = 'europe-west1-d'
+        CREDENTIALS_ID = 'd89505588e7e1f934c2be12aa6043ea46f4fd51b'
     }
     stages {
         stage('Cloning Git Repository') {
@@ -31,6 +35,19 @@ pipeline {
         stage('Clear Unused docker image') {
             steps {
                 sh "docker rmi $registry:$BUILD_NUMBER"
+            }
+        }
+        stage('Deploy to GCP Kubernetes cluster') {
+            steps {
+                step([
+                $class: 'KubernetesEngineBuilder',
+                projectId: env.PROJECT_ID,
+                clusterName: env.CLUSTER_NAME,
+                location: env.LOCATION,
+                manifestPattern: 'manifest.yaml',
+                credentialsId: env.CREDENTIALS_ID,
+                verifyDeployments: true])
+                }
             }
         }
     }
