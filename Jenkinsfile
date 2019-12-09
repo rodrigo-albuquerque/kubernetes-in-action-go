@@ -49,6 +49,5 @@ pipeline {
                 verifyDeployments: true])
                 }
             }
-        }
-    }
+      }
 }
