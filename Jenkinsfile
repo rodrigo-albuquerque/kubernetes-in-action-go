@@ -1,7 +1,6 @@
 pipeline {
     agent any
     environment {
-        DOCKER_IMAGE_NAME = "digofarias/app:v1"
         registry = "digofarias/app"
         registryCredential = 'dockerhub'
         dockerImage = ''
