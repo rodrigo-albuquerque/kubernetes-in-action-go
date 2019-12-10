@@ -14,5 +14,5 @@ spec:
         app: go-app
     spec:
       containers:
-      - image: digofarias/app:26
+      - image: digofarias/app:v1
         name: go-app
