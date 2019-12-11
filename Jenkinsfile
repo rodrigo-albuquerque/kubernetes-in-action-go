@@ -24,10 +24,12 @@ pipeline {
         }
         stage('Push Docker Image') {
             steps {
+                script {
                     docker.withRegistry( '', registryCredential ) {
                         dockerImage.push()
-                  }
-             }
+                    }
+                }
+            }
         }
         stage('Clear Unused docker image') {
             steps {
