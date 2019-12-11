@@ -17,23 +17,19 @@ pipeline {
         }
         stage('Build Docker Image') {
             steps {
-                script {
-                    dockerImage = docker.build registry + ":$BUILD_NUMBER"
-                }
+                dockerImage = docker.build registry + ":$BUILD_NUMBER"
             }
         }
         stage('Push Docker Image') {
             steps {
-                script {
                     docker.withRegistry( '', registryCredential ) {
                         dockerImage.push()
-                    }
-                }
+                  }
              }
         }
         stage('Clear Unused docker image') {
             steps {
-            sh "docker rmi $registry:$BUILD_NUMBER"
+                sh "docker rmi $registry:$BUILD_NUMBER"
             }
         }
         stage('Deploy to GCP Kubernetes cluster') {
