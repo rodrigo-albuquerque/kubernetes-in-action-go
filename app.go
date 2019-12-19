@@ -12,7 +12,7 @@ func handler(response http.ResponseWriter, request *http.Request) {
 	if err != nil {
 		log.Fatal(err)
 	}
-  fmt.Fprint(response, "This is v1 running in pod "+name, "\n")
+  fmt.Fprint(response, "This is v2 running in pod "+name, "\n")
 }
 
 func main() {
